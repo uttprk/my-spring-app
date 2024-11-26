@@ -33,6 +33,26 @@ jobs:
         with:
           name: java-app
           path: '${{ github.workspace }}/target/*.jar'
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Java version
+        uses: actions/setup-java@v4
+        with:
+          java-version: '8.x'
+          distribution: 'temurin'
+
+      - name: Run Unit Tests
+        run: mvn test
+
+      - name: Upload Test Results
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: target/surefire-reports/*.xml
 
   deploy:
     runs-on: ubuntu-latest
