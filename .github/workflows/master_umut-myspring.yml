@@ -11,7 +11,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
 
     steps:
       - uses: actions/checkout@v4
@@ -19,8 +19,11 @@ jobs:
       - name: Set up Java version
         uses: actions/setup-java@v4
         with:
-          java-version: '8'
-          distribution: 'microsoft'
+          java-version: '8.x'
+          distribution: 'temurin'
+
+      - name: Verify Java version
+        run: java -version
 
       - name: Build with Maven
         run: mvn clean install
